@@ -23,7 +23,7 @@ export default function FeedbackPage() {
       setLoading(true);
 
       const res = await axios.post(
-        "http://192.168.140.80:5000/api/review/feedback",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/review/feedback`,
         {
           businessId,
           rating: Number(rating),
@@ -52,8 +52,8 @@ export default function FeedbackPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-10 rounded-2xl shadow-xl w-[450px]">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-5">
+      <div className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-[450px]">
         <h1 className="text-4xl font-bold">
           We value your feedback
         </h1>
@@ -72,7 +72,7 @@ export default function FeedbackPage() {
               name: e.target.value,
             })
           }
-          className="border w-full p-3 mt-8 rounded-lg"
+          className="border w-full p-3 mt-8 rounded-lg outline-none"
         />
 
         <input
@@ -85,7 +85,7 @@ export default function FeedbackPage() {
               phone: e.target.value,
             })
           }
-          className="border w-full p-3 mt-5 rounded-lg"
+          className="border w-full p-3 mt-5 rounded-lg outline-none"
         />
 
         <textarea
@@ -98,13 +98,13 @@ export default function FeedbackPage() {
               message: e.target.value,
             })
           }
-          className="border w-full p-3 mt-5 rounded-lg"
+          className="border w-full p-3 mt-5 rounded-lg outline-none"
         />
 
         <button
           onClick={submitFeedback}
           disabled={loading}
-          className="bg-black text-white w-full py-3 rounded-lg mt-6"
+          className="bg-black hover:bg-gray-800 transition text-white w-full py-3 rounded-lg mt-6"
         >
           {loading ? "Submitting..." : "Submit Feedback"}
         </button>
