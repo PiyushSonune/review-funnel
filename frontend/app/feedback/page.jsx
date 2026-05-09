@@ -1,10 +1,17 @@
 "use client";
 
 import axios from "axios";
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import {
+  Suspense,
+  useState
+} from "react";
 
-export default function FeedbackPage() {
+import {
+  useSearchParams
+} from "next/navigation";
+
+function FeedbackForm() {
+
   const searchParams = useSearchParams();
 
   const businessId = searchParams.get("businessId");
@@ -19,7 +26,9 @@ export default function FeedbackPage() {
   const [loading, setLoading] = useState(false);
 
   const submitFeedback = async () => {
+
     try {
+
       setLoading(true);
 
       const res = await axios.post(
@@ -42,18 +51,24 @@ export default function FeedbackPage() {
         phone: "",
         message: "",
       });
+
     } catch (error) {
+
       console.log(error);
 
       alert("Error submitting feedback");
+
     } finally {
+
       setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-5">
+
       <div className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-[450px]">
+
         <h1 className="text-4xl font-bold">
           We value your feedback
         </h1>
@@ -108,7 +123,18 @@ export default function FeedbackPage() {
         >
           {loading ? "Submitting..." : "Submit Feedback"}
         </button>
+
       </div>
+
     </div>
+  );
+}
+
+export default function FeedbackPage() {
+
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <FeedbackForm />
+    </Suspense>
   );
 }
