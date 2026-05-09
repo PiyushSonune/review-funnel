@@ -22,7 +22,7 @@ export default function ReviewPage({ params }) {
         `${process.env.NEXT_PUBLIC_API_URL}/api/review/${resolvedParams.slug}`
       );
 
-      setBusiness(res.data);
+      setBusiness(res.data.business || res.data);
 
     } catch (error) {
 
