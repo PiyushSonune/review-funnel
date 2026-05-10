@@ -52,10 +52,10 @@ export default function ReviewPage({ params }) {
 
       if (rating >= 4) {
 
-        window.location.href =
-          business.googleReviewUrl;
+  window.location.href =
+    "https://g.page/r/CeJcPxHZnxvUEBM/review";
 
-      } else {
+} else {
 
         window.location.href =
           `/feedback?businessId=${business.id}&rating=${rating}`;
