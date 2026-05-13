@@ -8,45 +8,55 @@ datasource db {
 }
 
 model Business {
-  id               String   @id @default(cuid())
-  name             String
-  slug             String   @unique
-  logo             String?
-  googleReviewUrl  String
-  createdAt        DateTime @default(now())
+  id              String   @id @default(cuid())
+  name            String
+  slug            String   @unique
+  logo            String
+  googleReviewUrl String
+  qrCodeUrl       String?
+  createdAt       DateTime @default(now())
 
-  qrCode           QRCode?
-  reviews          Review[]
-  feedbacks        Feedback[]
+  reviews   Review[]
+  feedbacks Feedback[]
+  scans     Scan[]
+  qrCodes   QRCode[]
 }
 
 model QRCode {
-  id          String   @id @default(cuid())
-  businessId  String   @unique
-  qrImageUrl  String
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  businessId String   @unique
+  qrImageUrl String
+  createdAt  DateTime @default(now())
 
-  business    Business @relation(fields: [businessId], references: [id])
+  business Business @relation(fields: [businessId], references: [id])
 }
 
 model Review {
-  id          String   @id @default(cuid())
-  businessId  String
-  rating      Int
-  isPositive  Boolean
-  scannedAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  businessId String
+  rating     Int
+  isPositive Boolean
+  createdAt  DateTime @default(now())
 
-  business    Business @relation(fields: [businessId], references: [id])
+  business Business @relation(fields: [businessId], references: [id])
 }
 
 model Feedback {
-  id          String   @id @default(cuid())
-  businessId  String
-  rating      Int
-  name        String?
-  phone       String?
-  message     String
-  createdAt   DateTime @default(now())
+  id         String   @id @default(cuid())
+  businessId String
+  rating     Int
+  name       String
+  phone      String
+  message    String
+  createdAt  DateTime @default(now())
 
-  business    Business @relation(fields: [businessId], references: [id])
+  business Business @relation(fields: [businessId], references: [id])
+}
+
+model Scan {
+  id         String   @id @default(cuid())
+  businessId String
+  createdAt  DateTime @default(now())
+
+  business Business @relation(fields: [businessId], references: [id])
 }
